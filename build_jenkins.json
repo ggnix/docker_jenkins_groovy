@@ -1,0 +1,8 @@
+freeStyleJob("Example_job"){
+  description ("Example_job")
+  label ("master")
+
+  steps {
+    shell ("echo Hello World!")
+  }
+}

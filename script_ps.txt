@@ -1,0 +1,12 @@
+$SecurePassword = $env:Password | ConvertTo-SecureString -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential -ArgumentList $env:User, $SecurePassword
+Invoke-Command -ComputerName $env:windows -Credential $cred -ScriptBlock {
+ 
+$Admin=gwmi -Class Win32_UserAccount | Where {$_.Name -eq "Administrator"}
+$user="$env:local_admin"
+$password="$env:password"
+$CAdmin=net user $user $password /add /expires:never /passwordchg:yes
+If ($Admin = $False) {$CAdmin} 
+else {
+'Local administrator is already created' }
+}
