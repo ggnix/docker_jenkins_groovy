@@ -20,3 +20,9 @@ docker run -d -p 8080:8080 --name jenkins_image jenkins_container
 ```
 http://localhost:8080
 ```
+<h2>Ansible container deployment</h2>
+
+Deploy container with the following command:
+```
+ansible-playbook deploy_image.yml -k
+```
