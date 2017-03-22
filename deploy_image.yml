@@ -1,0 +1,23 @@
+---
+- name: Deploy docker image
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install pip
+      yum: 
+        name: python-pip
+        state: present
+    - name: Docker-PY
+      pip:
+        name: "{{ item }}"
+      with_items:
+      - six==1.4
+      - docker-py==1.7.0
+    - name: Deploy image
+      docker:
+        name: jenkins-groovy
+        image: bonjovi/jenkins-groovy:0.1
+        ports:
+        - "8080:8080"
+        pull: always
+        state: reloaded
